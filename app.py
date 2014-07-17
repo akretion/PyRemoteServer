@@ -83,7 +83,8 @@ class AutoSSH(object):
         return True
 
 autossh = AutoSSH()
-sshkey = open("/home/sebastien/.ssh/id_rsa.pub").read()
+home = os.path.expanduser("~")
+sshkey = open(os.path.join(home, ".ssh/id_rsa.pub")).read()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
