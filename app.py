@@ -83,6 +83,7 @@ class AutoSSH(object):
         return True
 
 autossh = AutoSSH()
+sshkey = open("/home/sebastien/.ssh/id_rsa.pub").read()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -93,7 +94,7 @@ def index():
     if autossh.get_pid():
         return render_template('running.html')
     else:
-        return render_template('index.html', form=form)
+        return render_template('index.html', form=form, sshkey=sshkey)
 
 @app.route('/stop', methods=['GET'])
 def stop():
@@ -101,4 +102,4 @@ def stop():
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run(port=5555)
+    app.run(port=5555, host='0.0.0.0')
